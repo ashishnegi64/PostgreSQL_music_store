@@ -1,0 +1,74 @@
+music playlist, book store analysis, 	movie analysis, 
+
+-- 1. senior most employee based on job title?
+
+
+
+select * from  employee
+
+order by levels desc
+
+limit 1;
+
+-- 2. Which 5 countries has the most invoices?
+
+
+
+select count(invoice_id),billing_country 
+
+from  invoice
+
+group by billing_country
+
+order by count(invoice_id) desc
+
+limit 5;
+
+-- 3. What are top 3 values of total invoice?
+
+
+select *
+
+from invoice
+
+order by total desc
+
+limit 3;
+
+/* 4. Which city has the best cusomers? We would like to throw a promotional music
+festival in the city we made the most money. Write a query that returns one city 
+that has the highest sum of invoice total. Return both the city name & sum of all
+invoice totals  */
+
+
+
+select billing_city , sum(total) as inv_total
+
+from invoice
+
+group by billing_city
+
+order by inv_total desc
+
+limit 1
+;
+
+/* 5. Who is the best customer? The customer who has spent the most money will be
+declared the best customer. Write a query that returns the person who has spent
+the most money. */
+
+
+
+select c.customer_id as cus_id, c.first_name, c.last_name, sum(i.total) as most_sales
+
+from customer as c
+
+join invoice as i
+
+on c.customer_id = i.customer_id
+
+group by cus_id
+
+order by most_sales desc
+
+limit 1;
